@@ -24,7 +24,7 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["html"],
+  reporter: [["line"],
     ["allure-playwright",
       {
         detail: true,
@@ -50,6 +50,10 @@ module.exports = defineConfig({
     //baseURL : "https://staging-shop.hhworkwear.com/",
     headless : true,
     ignoreHTTPSErrors: true,
+    // httpCredentials: {
+    //   username: 'hh',
+    //   password: 'alive',
+    // },
     //browserName : "chromium",
     //...devices['Desktop Chrome']
   },
