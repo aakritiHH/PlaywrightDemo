@@ -71,5 +71,5 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-          user_name: shahwar-fathima
-          user_email: shahwar.fathima@gspann.com
+          user_name: Aakriti Kakkart
+          user_email: akakkar@hellyhansen.com
