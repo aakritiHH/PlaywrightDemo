@@ -1,0 +1,11 @@
+{
+   "billingAddress": { 
+        "firstName": "test",
+        "lastName": "user",
+        "address": "9/29 , Rajnagar",
+        "city": "Delhi",
+        "email": "test-123@test.com",
+        "postalCode": "110034",
+        "phoneNumber": "9876543211"
+   }
+}
