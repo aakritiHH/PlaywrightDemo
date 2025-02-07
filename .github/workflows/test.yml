@@ -71,5 +71,5 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-          user_name: Aakriti Kakkart
+          user_name: Aakriti Kakkar
           user_email: akakkar@hellyhansen.com
