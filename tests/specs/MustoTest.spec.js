@@ -69,7 +69,7 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.verifySelectedCountry('India')
 });
 
-test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@MUSTO']}, async ({ page }) => {
+test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@MUSTO', '@smoke']}, async ({ page }) => {
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
     const productPage = new ProductPage(page)

@@ -6,7 +6,7 @@
   "scripts": {
     "test:qa:sanity:safari": "TEST_ENV=qa npx playwright test tests/specs/ --grep @loginpage --project=chromium --trace on",
     "test:qa:smoke:firefox": "(TEST_ENV=qa npx playwright test tests/specs/ --grep @smoke --project=firefox --reporter=line,allure-playwright) && (npm run postTest)",
-    "test:qa:orderplacement:chrome": "(brand=mustostg npx playwright test tests/specs/ --grep @OrderConfirmation --project=chromium)",
+    "test:qa:orderplacement:chrome": "(brand=mustostg npx playwright test tests/specs/ --grep @smoke --project=chromium)",
     "test:qa:smoke:Pixel5": "(TEST_ENV=qa npx playwright test tests/specs/ --grep @loginpage --project='Mobile chrome' --reporter=line,allure-playwright )",
     "test:qa:smoke:mustoCountry:iPhone12": "(TEST_ENV=qa npx playwright test tests/specs/ --grep @Banner --project='Mobile safari' --reporter=line,allure-playwright) && (npm run postTest)",
     "postTest": "npx allure generate allure-results --clean -o allure-report && npx allure open allure-report"

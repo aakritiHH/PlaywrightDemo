@@ -22,7 +22,48 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
+test('Search functionality', {tag:['@search', '@smoke', '@HH']}, async () =>{
+    const browser = await chromium.launch();  // Launch the browser
+  
+    const context = await browser.newContext({
+        httpCredentials: {
+            username: 'hh',
+            password: 'alive',
+        },
+    });
+
+    const page = await context.newPage();  // Use the new context for a fresh page
+    console.log('[INFO] Test Case starts.....')
+    console.log('[INFO] Navigate to the URL.....')
+
+    const homePage = new HomePage(page)
+    const searchPage = new SearchPage(page)
+    const searchKeyword = productData.productData.productskeywords;
+
+    const url = urlDetails.hellyhansenstg.url;
+    console.log("url is" + url)
+   // let url = basePage.urlFormation();
+    await homePage.goToHomePage(url);
+
+  
+    await homePage.closePopUpOnHomePage_HH()
+    console.log('[SUCCESS] Pop-up closed Successful.....')
+    await homePage.closeCountryConfirmationPopUp();
+    console.log('[SUCCESS] Country confirmation pop-up.....')
+
+    await page.getByLabel('I want to stay').click();
+
+    await homePage.clickonSearchIcon();
+    await homePage.searchProductByKeyword(searchKeyword);
+    console.log('[SUCCESS] Landed on Search page.....')
+
+   await searchPage.selectRandomfilter();
+   await searchPage.searchPageValidationAfterApplyingFilters();
+
+});
+
+
+test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation', '@smoke',] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
   
             const context = await browser.newContext({
@@ -78,7 +119,5 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
             console.log('------Test Case Ends------');
 
-        
-    
 });
 
