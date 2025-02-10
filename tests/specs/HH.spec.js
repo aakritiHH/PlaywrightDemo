@@ -22,7 +22,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Search functionality', {tag:['@search','@smoke']}, async () =>{
+test('Search functionality', {tag:['@search']}, async () =>{
     const browser = await chromium.launch();  // Launch the browser
   
     const context = await browser.newContext({
@@ -67,7 +67,7 @@ test('Search functionality', {tag:['@search','@smoke']}, async () =>{
 });
 
 
-test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
+test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation','@smoke'] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
   
             const context = await browser.newContext({
@@ -99,6 +99,10 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             console.log('[SUCCESS] Pop-up closed Successful.....')
             await homePage.closeCountryConfirmationPopUp();
             console.log('[SUCCESS] Country confirmation pop-up.....')
+            
+            await homePage.changeGeoLocation()
+            console.log('[SUCCESS] Geo location changed successfully.....')
+
             await homePage.clickonSearchIcon();
             await homePage.searchProductByKeyword(searchKeyword);
             console.log('[SUCCESS] Landed on Search page.....')
