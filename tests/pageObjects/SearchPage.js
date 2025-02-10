@@ -52,8 +52,19 @@ async searchPageValidationAfterApplyingFilters(){
 
     console.log(valueAfterFilter)
 
-    expect(valueBeforeFilter).not.toBe(valueAfterFilter); 
+    expect(valueBeforeFilter).not.toBe(valueAfterFilter);
 
+}
+
+async searchPageValidationBasedOnKeyword(searchkeyword){
+        
+    var searchText = 'h1.heading_default__PX0IL.heading_style--h1__Dnkyg';
+
+    await this.page.locator(searchText).waitFor({state: 'visible'});
+
+    searchText = await this.page.innerText(searchText);
+    searchText.replace(/\n+/g, '').trim();
+    expect(searchText).toContain(searchkeyword); 
 
 }
 

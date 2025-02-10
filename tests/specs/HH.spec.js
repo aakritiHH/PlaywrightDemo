@@ -59,6 +59,8 @@ test('Search functionality', {tag:['@search','@HH']}, async () =>{
     await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')
 
+    await searchPage.searchPageValidationBasedOnKeyword(searchKeyword);
+   
    await searchPage.selectRandomfilter();
    await searchPage.searchPageValidationAfterApplyingFilters();
 
