@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","182930","Search functionality","chromium","Mon Feb 10 11:04:30 GMT 2025","broken","Mon Feb 10 11:07:33 GMT 2025","","specs/HH.spec.js","",""
