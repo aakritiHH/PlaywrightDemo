@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
    
-    "test:qa:orderplacement:chrome": "(brand=HHstg npx playwright test tests/specs/ --grep @smoke --project=chromium)",
+    "test:qa:orderplacement:chrome": "(brand=HHstg npx playwright test tests/specs/ --grep @HH --project=chromium)",
     "test:qa:orderplacement:musto:chrome": "(brand=mustostg npx playwright test tests/specs/ --grep @smoke --project=chromium)"
 
   },
