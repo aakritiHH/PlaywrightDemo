@@ -71,15 +71,28 @@ class HomePage {
     async closeCountryConfirmationPopUp(){         
           await this.page.waitForLoadState('load');
           try{
-             await this.page.waitForSelector('input[value="Continue to shop"]')
+           await this.page.waitForSelector('input[value="Continue to shop"]', {timeout: 10000})
             if(await this.continueToCountryButton.isVisible()){
-                await await this.continueToCountryButton.click()
+                await this.continueToCountryButton.click()
                 return;
             } 
           }catch(e){
             console.log('Waited for Continue to save button')
           }
             
+    }
+
+    async storeSwitcherPopUp(){
+        try{
+            const closeSwitcherPopup = '[class="storeSwitcher-module__content__I0kQ_"] div:nth-child(2) button.button-module__primary__OBtHD';
+            //await this.page.waitForSelector('[class="storeSwitcher-module__buttonClose__oVYmg"]', {timeout: 10000})
+           if(await this.page.locator(closeSwitcherPopup).isVisible()){
+               await this.page.locator(closeSwitcherPopup).click();
+               return;
+           } 
+         }catch(e){
+           console.log('Close button in store switcher modal is not displayed')
+         }
     }
 
     async clickonSearchIcon(){

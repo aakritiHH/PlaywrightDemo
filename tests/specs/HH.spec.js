@@ -22,11 +22,9 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () => {
+test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
-
-    try {
-        if (browser) {
+  
             const context = await browser.newContext({
                 httpCredentials: {
                     username: 'hh',
@@ -46,7 +44,9 @@ test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () =
             const orderConfirmationPage = new OrderConfirmationPage(page)
             const searchKeyword = productData.productData.productskeywords;
 
-            let url = basePage.urlFormation();
+            const url = urlDetails.hellyhansenstg.url;
+            console.log("url is" + url)
+           // let url = basePage.urlFormation();
             await homePage.goToHomePage(url);
 
           
@@ -78,9 +78,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH'] }, async () =
             await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
             console.log('------Test Case Ends------');
 
-        }
-    } catch (e) {
-        console.log("Test Case Failed---------", e)
-    }
+        
+    
 });
 

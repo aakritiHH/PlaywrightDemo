@@ -69,7 +69,7 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Bann
     await homePage.verifySelectedCountry('India')
 });
 
-test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@smoke']}, async ({ page }) => {
+test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@MUSTO']}, async ({ page }) => {
     const homePage = new HomePage(page)
     const searchPage = new SearchPage(page)
     const productPage = new ProductPage(page)
@@ -82,16 +82,24 @@ test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfi
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
     
-    let url = basePage.urlFormation();
-    
+    //let url = basePage.urlFormation();
+    const url = urlDetails.mustostg.url;
+    console.log("url is" + url)
     await homePage.goToHomePage(url); // Navigate to the home page
+    
     console.log('[SUCCESS] URL Launch Successful.....')
     await homePage.acceptAllCookiesButton(); // Close the cookies banner in footer
     console.log('[SUCCESS] Accept cookies banner closed succesfully.....')
+
+    await homePage.storeSwitcherPopUp();
+    console.log('Clicked on close in store switcher modal')
+
+
     await homePage.clickShippingWorldWidePopUpSaveButton(); //Save the country bydefault selected on Now shipping worldwide!
     console.log('[SUCCESS] Pop-up closed Successful.....')
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Closed pop-up.....')
+    
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')

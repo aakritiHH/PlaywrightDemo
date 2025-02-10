@@ -42,7 +42,7 @@ class CartPage {
 
     async captureTotalAmountFromCartPage(){
         await this.page.waitForSelector('td.price-summary-total, div.product_price__mxrO4',{timeout: 10000});
-        const fullPrice = await this.page.locator('td.price-summary-total, div.product_price__mxrO4').getAttribute('ge-data-converted-full-price');
+        const fullPrice = await this.page.textContent('td.price-summary-total, div.product_price__mxrO4')
         const priceTotal1 = fullPrice.replace(/,/g, '');
         const priceTotal = priceTotal1.replace(/\s+/g, '');
         const trimPrice = priceTotal.replace(/[\u200B-\u200D\uFEFF]/g, '');
