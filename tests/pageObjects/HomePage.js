@@ -150,6 +150,12 @@ class HomePage {
         await this.page.getByRole('button', { name: 'Set Location' }).click();
        
         await this.closeCountryConfirmationPopUp();
+
+        //
+        await expect(page.locator('.glDefaultPopupContainer')).toBeVisible();
+        await page.getByLabel('Change your shipping country').selectOption('KW');
+        await page.getByLabel('Change your shipping country').selectOption('IN');
+        await page.getByRole('button', { name: 'Save' }).click();
     
        /* if(await this.page.getByRole('button', { name: 'EN' }).isVisible()){
             console.log("EN is visible")
