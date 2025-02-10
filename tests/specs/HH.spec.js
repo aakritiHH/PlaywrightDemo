@@ -48,12 +48,11 @@ test('Search functionality', {tag:['@search']}, async () =>{
   
     await homePage.closePopUpOnHomePage_HH()
     console.log('[SUCCESS] Pop-up closed Successful.....')
-    await homePage.closeCountryConfirmationPopUp();
+    await homePage.closeConfirmationPopUp_HH()
+   // await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Country confirmation pop-up.....')
 
-    if(await page.getByLabel('I want to stay').isVisible()){
-        await page.getByLabel('I want to stay').click();
-    }
+    await homePage.changeGeoLocation_HH()
 
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);
@@ -97,7 +96,8 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
           
             await homePage.closePopUpOnHomePage_HH()
             console.log('[SUCCESS] Pop-up closed Successful.....')
-            await homePage.closeCountryConfirmationPopUp();
+            await homePage.closeConfirmationPopUp_HH();
+            //await homePage.closeCountryConfirmationPopUp();
             console.log('[SUCCESS] Country confirmation pop-up.....')
             
             await homePage.changeGeoLocation()

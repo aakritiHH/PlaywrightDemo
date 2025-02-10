@@ -20,6 +20,7 @@ class HomePage {
         this.shippingWorldWidePopUp= page.locator('div.glDefaultPopupContainer');
         this.continueToCountryButton = page.locator('input[value="Continue to shop"]');
         this.selectedCountry = page.locator('div#ge_ss0_1 span');
+        this.geoLocationButton_HH = page.locator('button.storeSwitcherTrigger_storeSwitcherButtonSimple__mIhhr button_trigger__6IjRX')
     }
 
     async goToHomePage(url) {
@@ -80,6 +81,19 @@ class HomePage {
             console.log('Waited for Continue to save button')
           }
             
+    }
+
+    async closeConfirmationPopUp_HH(){
+        try{
+            await this.page.waitForSelector('button[aria-label="I want to stay"]', {timeout: 10000})
+             if(await this.page.locator('button[aria-label="I want to stay"]').isVisible()){
+                await this.page.locator('button[aria-label="I want to stay"]').click();
+                 return;
+             } 
+           }catch(e){
+             console.log('Waited for Continue to save button')
+           }
+        
     }
 
     async storeSwitcherPopUp(){
@@ -148,26 +162,35 @@ class HomePage {
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
-       // if(this.page.locator('.glDefaultPopupContainer').isVisible()) {
+      
         await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
         await this.page.getByLabel('Change your shipping country').selectOption('IN');
         await this.page.getByRole('button', { name: 'Save' }).click();
-       // }
-        const location = await this.page.locator('#ge_ss0_1 span').textContent();
-        console.log('Location after .......', location);
+     
+       /* const location = await this.page.locator('#ge_ss0_1 span').textContent();
+        console.log('Current location .......', location); */
         await this.closeCountryConfirmationPopUp();
         await this.clickShippingWorldWidePopUpSaveButton();
-      /*  if(location!='India'){
-        await this.page.locator('#ge_ss769_0').getByText('Shipping to').click();
-        await expect(page.locator('.glDefaultPopupContainer')).toBeVisible();
-        await this.page.getByLabel('Change your shipping country').selectOption('IN');
-        await this.page.locator('#gle_selectedCurrency').selectOption('INR');
-        await this.page.getByRole('button', { name: 'Save' }).click();
-        } else {
-            await this.clickShippingWorldWidePopUpSaveButton();
-            await this.closeCountryConfirmationPopUp();
-        } */
+  
+    }
 
+    async changeGeoLocation_HH(){
+        await this.page.waitForLoadState('load');
+        await geoLocationButton_HH.waitFor({ state: 'visible', timeout: 6000 });
+        await geoLocationButton_HH.click();
+        await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
+        await this.page.getByLabel('Your Region').selectOption('Global');
+        await this.page.getByRole('button', { name: 'Set Location' }).click();
+      
+        await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
+        await this.page.getByLabel('Change your shipping country').selectOption('IN');
+        await this.page.getByRole('button', { name: 'Save' }).click();
+     
+       /* const location = await this.page.locator('#ge_ss0_1 span').textContent();
+        console.log('Current location .......', location); */
+        await this.closeCountryConfirmationPopUp();
+        await this.clickShippingWorldWidePopUpSaveButton();
+  
     }
 }
 module.exports = { HomePage };
