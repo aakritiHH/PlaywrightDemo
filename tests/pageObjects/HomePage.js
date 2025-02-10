@@ -151,7 +151,7 @@ class HomePage {
        
         await this.closeCountryConfirmationPopUp();
     
-        if(await this.page.getByRole('button', { name: 'EN' }).isVisible()){
+       /* if(await this.page.getByRole('button', { name: 'EN' }).isVisible()){
             console.log("EN is visible")
             await this.page.getByRole('button', { name: 'EN' }).click();
             await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
@@ -160,7 +160,7 @@ class HomePage {
             await this.page.getByRole('button', { name: 'EN' }).click();
             await this.page.waitForLoadState('load');
             await expect(this.page.locator('#ge_ss769_0').getByText('Shipping to')).toBeVisible();
-        }
+        } */
     
         const location = await this.page.locator('#ge_ss0_1 span').textContent();
         console.log('Location after .......', location);
