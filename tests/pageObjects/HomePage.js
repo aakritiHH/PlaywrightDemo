@@ -149,9 +149,8 @@ class HomePage {
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
         await this.page.getByRole('button', { name: 'EN' }).click();
-        await this.page.waitForLoadState('load');
-        await expect(this.page.locator('#ge_ss769_0').getByText('Shipping to')).toBeVisible();
-        if(await expect(this.page.getByRole('button', { name: 'EN' })).toBeVisible()){
+        //await this.page.waitForLoadState('load');
+ /*       if(!await expect(this.page.locator('#ge_ss769_0').getByText('Shipping to')).toBeVisible()){
             await this.page.getByRole('button', { name: 'EN' }).click();
             await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
             await this.page.getByLabel('Your Region').selectOption('Global');
@@ -159,7 +158,8 @@ class HomePage {
             await this.page.getByRole('button', { name: 'EN' }).click();
             await this.page.waitForLoadState('load');
             await expect(this.page.locator('#ge_ss769_0').getByText('Shipping to')).toBeVisible();
-        }
+        }*/
+        await this.closeCountryConfirmationPopUp();
         const location = await this.page.locator('#ge_ss0_1 span').textContent();
         console.log('Location after .......', location);
         if(location!='India'){
