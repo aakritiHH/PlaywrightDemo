@@ -7,7 +7,7 @@ const { test } = require('./test-fixture');
 
 
 test('sample test', async ({page})=>{
-await page.goto('https://staging-shop3.hellyhansen.com/en_us/');
+await page.goto('https://staging-shop3.hellyhansen.com/en_global/');
 
 });
 

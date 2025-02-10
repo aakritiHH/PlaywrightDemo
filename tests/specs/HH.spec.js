@@ -48,11 +48,12 @@ test('Search functionality', {tag:['@search']}, async () =>{
   
     await homePage.closePopUpOnHomePage_HH()
     console.log('[SUCCESS] Pop-up closed Successful.....')
-    await homePage.closeConfirmationPopUp_HH()
-   // await homePage.closeCountryConfirmationPopUp();
+    await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Country confirmation pop-up.....')
 
-    await homePage.changeGeoLocation_HH()
+    if(await page.getByLabel('I want to stay').isVisible()){
+        await page.getByLabel('I want to stay').click();
+    }
 
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);
@@ -66,7 +67,7 @@ test('Search functionality', {tag:['@search']}, async () =>{
 });
 
 
-test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation','@smoke'] }, async () => {
+test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
   
             const context = await browser.newContext({
@@ -97,11 +98,8 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await homePage.closePopUpOnHomePage_HH()
             console.log('[SUCCESS] Pop-up closed Successful.....')
             await homePage.closeConfirmationPopUp_HH();
-            //await homePage.closeCountryConfirmationPopUp();
-            console.log('[SUCCESS] Country confirmation pop-up.....')
-            
-            await homePage.changeGeoLocation()
-            console.log('[SUCCESS] Geo location changed successfully.....')
+            await homePage.closeCountryConfirmationPopUp();
+            console.log('[SUCCESS] Country confirmation pop-up closed.....')
 
             await homePage.clickonSearchIcon();
             await homePage.searchProductByKeyword(searchKeyword);

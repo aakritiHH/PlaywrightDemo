@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Playwright Tests
         run: |
-            npm run test:qa:orderplacement:chrome
+            npm run test:qa:orderplacement:musto:chrome
         continue-on-error: true
 
       - name: Generate Allure report
