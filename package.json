@@ -15,11 +15,11 @@
   "author": "GSPANN",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "^1.50.1",
     "@types/node": "^20.12.2",
     "@zerostep/playwright": "^0.1.5",
     "allure-playwright": "^2.15.1",
-    "playwright": "^1.43.1"
+    "playwright": "^1.50.1"
   },
   "dependencies": {
     "allure-commandline": "^2.32.2",
