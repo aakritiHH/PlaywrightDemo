@@ -1,0 +1,75 @@
+name: Verify order placement scenario
+on:
+  # push:
+  #   branches:
+  #     - frameworkstructure
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout git repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20' # Specify your Node.js version here
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        
+      - name: Prepare Allure history
+        run: |
+          cd ..
+          mkdir -p allure-results
+
+      - name: Run Playwright Tests
+        run: |
+            npm run test:qa:search:chrome
+        continue-on-error: true
+
+      - name: Generate Allure report
+        run: npx allure generate allure-report --clean -o allure-report
+        continue-on-error: true
+
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Allure report action
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 10
+          
+
+      - name: Deploy Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          force_orphan: true
+          user_name: Aakriti Kakkar
+          user_email: akakkar@hellyhansen.com
