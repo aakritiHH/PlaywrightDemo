@@ -143,6 +143,8 @@ class HomePage {
 
     async changeGeoLocation(){
         await this.page.waitForLoadState('load');
+        const geoLocation = await this.page.locator('#ge_ss0_1 span').textContent();
+        console.log('Location when landed is .......', geoLocation);
         await this.page.getByRole('button', { name: 'EN' }).click();
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
@@ -150,7 +152,7 @@ class HomePage {
         await this.page.getByRole('button', { name: 'EN' }).click();
         await this.page.waitForLoadState('load');
         const location = await this.page.locator('#ge_ss0_1 span').textContent();
-        console.log('Location is .......', location);
+        console.log('Location after .......', location);
         if(location!='India'){
         await this.page.locator('#ge_ss769_0').getByText('Shipping to').click();
         await expect(page.locator('.glDefaultPopupContainer')).toBeVisible();
