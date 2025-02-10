@@ -27,7 +27,7 @@ class CartPage {
 
     async captureProductSizeFromCartPage(){
         const productSize = await this.productSizeCapture.textContent()
-        console.log('Size from bag page.....', productSize)
+        console.log('Size from Cart page: ', productSize)
         return productSize;
      
     }
@@ -35,7 +35,7 @@ class CartPage {
     async captureProductQtyFromCartPage(){
         // Fetch the value from the input
         const qtySelected = await this.page.locator('input.quantity-module__input__zjN5m, div.product_productCellQty___NzJQ.product_cell__xhfwi input[field="quantity"]').getAttribute('value');
-        console.log('Quantity from bag page.....', qtySelected); 
+        console.log('Quantity from Cart page: ', qtySelected); 
         return qtySelected;
      
     }

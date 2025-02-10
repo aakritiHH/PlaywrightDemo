@@ -90,7 +90,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             const searchKeyword = productData.productData.productskeywords;
 
             const url = urlDetails.hellyhansenstg.url;
-            console.log("url is" + url)
+            console.log("URL is: " + url)
            // let url = basePage.urlFormation();
             await homePage.goToHomePage(url);
 
@@ -105,11 +105,11 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await homePage.searchProductByKeyword(searchKeyword);
             console.log('[SUCCESS] Landed on Search page.....')
             await searchPage.selectRandomProductFromSearchPage();
-            console.log('[SUCCESS] Landed on Product page.....')
+            console.log('[SUCCESS] Landed on PDP.....')
             await productPage.selectSizeFromDropDown();
             await productPage.clickOnAddToBag()
             await productPage.clickOnGoToCartButton()
-            console.log('-------get the review ordersummary details in cart page------')
+            console.log('-------get the Order price, size and Qty from cart page------')
             const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
 
             // Proceed to checkout and complete order
@@ -117,13 +117,14 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
             await checkoutPage.paypalLoginAndOrderConfirmation()
 
-            console.log('-------get the ordersummary details from from order confirmation page-----')
+            console.log('-------get the Order price, size and Qty from cart page from order confirmation page-----')
             const OrderSummary = await orderConfirmationPage.summaryDetailsonConfirmationPage();// get the order summary details from order confirmation page
-            console.log('-------verify order summary details from Order review page and order Confirmation page------')
+            console.log('-------Compare order summary details from Order confirmation page and cart page------')
 
             // Compare the order summary details
             await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
-            console.log('------Test Case Ends------');
+            console.log('-------Values matched------')
+            console.log('------Test Case Ends------')
 
 });
 
