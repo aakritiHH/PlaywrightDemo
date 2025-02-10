@@ -148,14 +148,15 @@ class HomePage {
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
-       
+        if(this.page.locator('.glDefaultPopupContainer').isVisible()) {
         await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
         await this.page.getByLabel('Change your shipping country').selectOption('IN');
         await this.page.getByRole('button', { name: 'Save' }).click();
-    
+        }
         const location = await this.page.locator('#ge_ss0_1 span').textContent();
         console.log('Location after .......', location);
         await this.closeCountryConfirmationPopUp();
+        await this.clickShippingWorldWidePopUpSaveButton();
       /*  if(location!='India'){
         await this.page.locator('#ge_ss769_0').getByText('Shipping to').click();
         await expect(page.locator('.glDefaultPopupContainer')).toBeVisible();
