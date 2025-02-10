@@ -47,9 +47,11 @@ class CheckoutPage {
         await iframe.locator('input#CheckoutData_BillingPhone').fill(billingAddress.phoneNumber)
         homePage.waitForPageLoad()
         //await this.page.waitForLoadState('load');
-        await iframe.locator('input#cardNum').waitFor({ state: "visible", timeout: 60000})
+        
         await iframe.locator('span[data-title=PayPal]').waitFor({ state: "visible", timeout: 60000})
+        await iframe.locator('input#cardNum').waitFor({ state: 'enabled', timeout: 60000 });
         await iframe.locator('span[data-title=PayPal]').click()
+
         await iframe.locator('[id="paypalConfirmText"]').waitFor({ state: "visible", timeout: 60000});
         await expect(iframe.locator('[id="paypalConfirmText"]')).toBeVisible();
         await this.page.waitForLoadState('load');
