@@ -62,7 +62,7 @@ test.only('open helly hansen website and do some operations', async({page, ai})=
 });
 
 test('open helly hansen', async({page})=>{
-    await page.goto('https://staging-shop3.hellyhansen.com/en_us');
+    await page.goto('https://staging-shop3.hellyhansen.com/en_global');
 
     await ai('Enter value in username of browser context as hh', {page, test});
     await ai('Enter value in password of browser context as alive', {page,test});
