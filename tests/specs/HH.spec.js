@@ -22,7 +22,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Search functionality', {tag:['@search', '@smoke', '@HH']}, async () =>{
+test('Search functionality', {tag:['@search','@HH']}, async () =>{
     const browser = await chromium.launch();  // Launch the browser
   
     const context = await browser.newContext({
@@ -65,7 +65,7 @@ test('Search functionality', {tag:['@search', '@smoke', '@HH']}, async () =>{
 });
 
 
-test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation', '@smoke',] }, async () => {
+test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
     const browser = await chromium.launch();  // Launch the browser
   
             const context = await browser.newContext({

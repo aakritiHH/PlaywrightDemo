@@ -26,7 +26,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@loginpage']}, async function({ page})  {
+test('TC02 : Homepage > Verify the Login functionality',{tag : ['@loginpage']}, async function({ page})  {
     const homePage = new HomePage(page)
     const loginPage= new LoginPage(page)
      
@@ -50,7 +50,7 @@ test('TC02 : Homepage > Verify the Login functionality',{tag : ['@smoke','@login
     console.log('[SUCCESS] Invalid credentials validated......')
 });
 
-test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@smoke','@GEO','@Banner']}, async function({ page }) {
+test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@GEO','@Banner']}, async function({ page }) {
     const homePage = new HomePage(page)
      
    
