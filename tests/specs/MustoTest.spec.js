@@ -95,11 +95,14 @@ test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfi
     console.log('Clicked on close in store switcher modal')
 
 
-    await homePage.clickShippingWorldWidePopUpSaveButton(); //Save the country bydefault selected on Now shipping worldwide!
+   // await homePage.clickShippingWorldWidePopUpSaveButton(); //Save the country bydefault selected on Now shipping worldwide!
     console.log('[SUCCESS] Pop-up closed Successful.....')
-    await homePage.closeCountryConfirmationPopUp();
+  //  await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Closed pop-up.....')
-    
+
+    await homePage.changeGeoLocation()
+    console.log('[SUCCESS] Geo location changed successfully.....')
+
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')

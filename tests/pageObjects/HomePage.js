@@ -97,9 +97,9 @@ class HomePage {
 
     async clickonSearchIcon(){
 
-        const combinedLocator = this.page.locator('[role="combobox"][aria-label="Search"], input[placeholder="What are you looking for?"]');
+        const combinedSearchLocator = this.page.locator('[role="combobox"][aria-label="Search"], input[placeholder="What are you looking for?"]');
         // Wait for either of the elements to be attached
-        await combinedLocator.waitFor({ state: 'attached' })
+        await combinedSearchLocator.waitFor({ state: 'attached' })
         await this.searchLink.waitFor({ state: "visible"})
         await this.searchLink.click();  
 
@@ -139,6 +139,28 @@ class HomePage {
         } else {
             console.error('Browser is not defined');
         }
+    }
+
+    async changeGeoLocation(){
+        await this.page.waitForLoadState('load');
+        await this.page.getByRole('button', { name: 'EN' }).click();
+        await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
+        await this.page.getByLabel('Your Region').selectOption('Global');
+        await this.page.getByRole('button', { name: 'Set Location' }).click();
+        await this.page.getByRole('button', { name: 'EN' }).click();
+        const location = await this.page.locator('#ge_ss0_1 span').textContent();
+        console.log('Location is .......', location);
+        if(location!='India'){
+        await this.page.locator('#ge_ss769_0').getByText('Shipping to').click();
+        await expect(page.locator('.glDefaultPopupContainer')).toBeVisible();
+        await this.page.getByLabel('Change your shipping country').selectOption('IN');
+        await this.page.locator('#gle_selectedCurrency').selectOption('INR');
+        await this.page.getByRole('button', { name: 'Save' }).click();
+        } else {
+            await this.clickShippingWorldWidePopUpSaveButton();
+            await this.closeCountryConfirmationPopUp();
+        }
+
     }
 }
 module.exports = { HomePage };
