@@ -22,7 +22,7 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Search functionality', {tag:['@search','@HH']}, async () =>{
+test('Search functionality', {tag:['@search','@smoke']}, async () =>{
     const browser = await chromium.launch();  // Launch the browser
   
     const context = await browser.newContext({
