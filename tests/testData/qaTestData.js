@@ -13,10 +13,10 @@ module.exports = {
     
         "firstName": "test",
         "lastName": "user",
-        "address": "9/29 , Rajnagar",
-        "city": "Delhi",
+        "address": "9/29 , Spring street",
+        "city": "US",
         "email": "test-123@test.com",
-        "postalCode": "110034",
+        "postalCode": "110001",
         "phoneNumber": "9876543211"
 
     }
