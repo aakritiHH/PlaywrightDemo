@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","31901","TC02 : Homepage > Verify the Login functionality","chromium","Mon Feb 10 11:00:49 GMT 2025","failed","Mon Feb 10 11:01:21 GMT 2025","","specs/MustoTest.spec.js","",""
+"","183605","Place an order using paypal as payment type","chromium","Mon Feb 10 11:03:21 GMT 2025","broken","Mon Feb 10 11:06:24 GMT 2025","","specs/HH.spec.js","",""
+"","183047","TC04 : Create an order using Pay pal as payment type","chromium","Mon Feb 10 11:04:25 GMT 2025","broken","Mon Feb 10 11:07:28 GMT 2025","","specs/MustoTest.spec.js","",""
+"","190244","TC03 : Homepage > Verify the GEO IP banner","chromium","Mon Feb 10 11:03:33 GMT 2025","broken","Mon Feb 10 11:06:43 GMT 2025","","specs/MustoTest.spec.js","",""
+"","184276","Search functionality","chromium","Mon Feb 10 11:03:21 GMT 2025","broken","Mon Feb 10 11:06:25 GMT 2025","","specs/HH.spec.js","",""
