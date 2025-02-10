@@ -1,3 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","181860","Place an order using paypal as payment type","chromium","Mon Feb 10 08:19:13 GMT 2025","broken","Mon Feb 10 08:22:14 GMT 2025","","specs/HH.spec.js","",""
-"","182656","TC04 : Create an order using Pay pal as payment type","chromium","Mon Feb 10 08:25:18 GMT 2025","broken","Mon Feb 10 08:28:21 GMT 2025","","specs/MustoTest.spec.js","",""
