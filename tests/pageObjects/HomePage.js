@@ -54,7 +54,7 @@ class HomePage {
     async clickShippingWorldWidePopUpSaveButton(){
         await this.page.waitForLoadState('domcontentloaded')
         try {
-            //await this.page.waitForSelector('input[value="Continue to shop"]')
+            await this.page.waitForSelector('input[value="Save"]', {timeout: 10000})
             //const isVisible = await this.shippingWorldWidePopUpSaveButton.isVisible()
         if (await this.shippingWorldWidePopUpSaveButton.isVisible()) {
           console.log('Shipping worldwide form is visible!');

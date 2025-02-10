@@ -82,8 +82,8 @@ test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfi
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
     
-    //let url = basePage.urlFormation();
-    const url = urlDetails.mustostg.url;
+    let url = basePage.urlFormation();
+    //const url = urlDetails.mustostg.url;
     console.log("url is" + url)
     await homePage.goToHomePage(url); // Navigate to the home page
     
