@@ -148,6 +148,7 @@ class HomePage {
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
         await this.page.getByRole('button', { name: 'EN' }).click();
+        await this.page.waitForLoadState('load');
         const location = await this.page.locator('#ge_ss0_1 span').textContent();
         console.log('Location is .......', location);
         if(location!='India'){
