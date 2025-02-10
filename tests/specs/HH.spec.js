@@ -51,7 +51,7 @@ test('Search functionality', {tag:['@search', '@smoke', '@HH']}, async () =>{
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Country confirmation pop-up.....')
 
-    if(page.getByLabel('I want to stay').isVisible()){
+    if(await page.getByLabel('I want to stay').isVisible()){
         await page.getByLabel('I want to stay').click();
     }
 
