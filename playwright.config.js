@@ -48,7 +48,7 @@ module.exports = defineConfig({
     screenshot: {mode: 'on', fullPage: true},
     video: 'on',
     //baseURL : "https://staging-shop.hhworkwear.com/",
-    headless : false,
+    headless : true,
     ignoreHTTPSErrors: true,
     // httpCredentials: {
     //   username: 'hh',
