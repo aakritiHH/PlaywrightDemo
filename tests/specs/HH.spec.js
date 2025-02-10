@@ -51,7 +51,9 @@ test('Search functionality', {tag:['@search', '@smoke', '@HH']}, async () =>{
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Country confirmation pop-up.....')
 
-    await page.getByLabel('I want to stay').click();
+    if(page.getByLabel('I want to stay').isVisible()){
+        await page.getByLabel('I want to stay').click();
+    }
 
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);

@@ -1,4 +1,4 @@
-name: Verify order placement scenario
+name: Search scenario
 on:
   # push:
   #   branches:
