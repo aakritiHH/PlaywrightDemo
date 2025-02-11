@@ -28,7 +28,7 @@ class CheckoutPage {
     
 
     async fillBillingAddressDetailsAndNavigateToPayPal(billingAddress={}){
-       const homePage = new HomePage(page);
+       //const homePage = new HomePage(page);
         await homePage.waitForPageLoad()
         await this.page.locator('iframe#Intrnl_CO_Container').waitFor({state: 'visible'});
         const iframeElement = await this.page.locator('iframe#Intrnl_CO_Container');
