@@ -1,13 +1,13 @@
 const { expect } = require("playwright/test");
 const { HomePage} = require("../pageObjects/HomePage"); 
-//let homePage = null;
+let homePage = null;
 
 // pageObjects/CheckoutPage.js
 class CheckoutPage {
 
     constructor(page) {
         this.page = page;
-        
+        homePage = new HomePage(page);
         this.firstNameInput = page.locator('div#billingFirstName input');
         this.lastNameInput = page.locator('input#CheckoutData_BillingLastName');
         this.emailInput = page.locator('input#CheckoutData_Email')
@@ -28,8 +28,8 @@ class CheckoutPage {
     
 
     async fillBillingAddressDetailsAndNavigateToPayPal(billingAddress={}){
-       //const homePage = new HomePage(page);
-        //await homePage.waitForPageLoad()
+       
+        await homePage.waitForPageLoad()
         await this.page.locator('iframe#Intrnl_CO_Container').waitFor({state: 'visible'});
         const iframeElement = await this.page.locator('iframe#Intrnl_CO_Container');
         const iframe = await iframeElement.contentFrame();
@@ -46,7 +46,7 @@ class CheckoutPage {
         await iframe.locator('input#BillingCity').fill(billingAddress.city)
         await iframe.locator('input#BillingZIP').fill(billingAddress.postalCode)
         await iframe.locator('input#CheckoutData_BillingPhone').fill(billingAddress.phoneNumber)
-       // await homePage.waitForPageLoad()
+       await homePage.waitForPageLoad()
         await this.page.waitForLoadState('load');
         await this.page.waitForTimeout(10000)
         await iframe.locator('span[data-title=PayPal]').waitFor({ state: "visible", timeout: 60000})
@@ -56,7 +56,7 @@ class CheckoutPage {
         await iframe.locator('[id="paypalConfirmText"]').waitFor({ state: "visible", timeout: 60000});
         await expect(iframe.locator('[id="paypalConfirmText"]')).toBeVisible();
         await this.page.waitForLoadState('load');
-        //await homePage.waitForPageLoad()
+        await homePage.waitForPageLoad()
         
         try {
            
