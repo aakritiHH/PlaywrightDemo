@@ -162,16 +162,16 @@ class HomePage {
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
-      
-        await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
-        await this.page.getByLabel('Change your shipping country').selectOption('IN');
-        await this.page.getByRole('button', { name: 'Save' }).click();
+        await this.page.waitForSelector('h2.glTitle',{timeout: 10000})
+        const popUpText = await this.page.locator('h2.glTitle').textContent();
      
-       /* const location = await this.page.locator('#ge_ss0_1 span').textContent();
-        console.log('Current location .......', location); */
-        await this.closeCountryConfirmationPopUp();
-        await this.clickShippingWorldWidePopUpSaveButton();
-  
+        if(popUpText=='We ship to India') {
+           await this.closeCountryConfirmationPopUp();    
+        } else{
+             await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
+             await this.page.getByLabel('Change your shipping country').selectOption('IN');
+             await this.page.getByRole('button', { name: 'Save' }).click();
+        }       
     }
 
     async changeGeoLocation_HH(){

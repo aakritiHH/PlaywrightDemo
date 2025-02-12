@@ -106,6 +106,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             console.log('[SUCCESS] Landed on Search page.....')
             await searchPage.selectRandomProductFromSearchPage();
             console.log('[SUCCESS] Landed on Product page.....')
+            await homePage.closeCountryConfirmationPopUp();
             await productPage.selectSizeFromDropDown();
             await productPage.clickOnAddToBag()
             await productPage.clickOnGoToCartButton()

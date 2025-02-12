@@ -12,6 +12,7 @@ class CartPage {
     async proceedToCheckout() {
         //await this.checkoutButton.click({force:true});
         try {
+        await this.proceedToCheckoutButton.waitFor({ state: "visible", timeout: 6000})
         await this.proceedToCheckoutButton.click({ force: true });
         } catch(e){
             console.log('Not able to click Proceed to checkout button',e)
