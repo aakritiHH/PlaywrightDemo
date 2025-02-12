@@ -1,2 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","185378","Place an order using paypal as payment type","chromium","Mon Feb 10 16:25:54 GMT 2025","broken","Mon Feb 10 16:28:59 GMT 2025","","specs/HH.spec.js","",""
