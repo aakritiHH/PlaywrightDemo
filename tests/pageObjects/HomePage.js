@@ -164,19 +164,13 @@ class HomePage {
         await this.page.getByRole('button', { name: 'Set Location' }).click();
         await this.waitForPageLoad()
         await this.page.waitForLoadState('load', { timeout: 10000 });
-        try {
-        const locator = await this.page.locator('h2.glTitle');
-        if(locator.isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
-
+        if(await this.page.locator('h2.glTitle').isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
             await this.closeCountryConfirmationPopUp();    
          } else{
               await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
               await this.page.getByLabel('Change your shipping country').selectOption('IN');
               await this.page.getByRole('button', { name: 'Save' }).click();
          }       
-        } catch(e){
-            console.log("Geo location US confirmation pop-up appear........")
-        }
        /* if(locator.isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
 
            await this.closeCountryConfirmationPopUp();    
