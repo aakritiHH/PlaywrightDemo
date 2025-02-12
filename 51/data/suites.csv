@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","82469","TC04 : Create an order using Pay pal as payment type","chromium","Wed Feb 12 14:56:32 GMT 2025","passed","Wed Feb 12 14:57:55 GMT 2025","","specs/MustoTest.spec.js","",""
