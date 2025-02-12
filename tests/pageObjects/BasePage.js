@@ -5,6 +5,12 @@ const  urlDetails  = require('../testData/urldetails.json');
 const { TestConfig } = require('../../config/configProperties')
 
 class BasePage {
+
+     // Wait for element visibility before interacting
+     async  waitForElementVisible(page, locator) {
+        await page.waitForSelector(locator, { state: 'visible' });
+        console.log(`[SUCCESS] Element is visible: ${locator}`);
+    }
   
     randomElementSelection(elementList) {
         if(elementList.length == 1){
@@ -31,11 +37,8 @@ class BasePage {
          return url;
     }
    
-    async hoverOverElement(){
-
-    }
-
-  
+   
+   
 }
 
 module.exports = {BasePage};

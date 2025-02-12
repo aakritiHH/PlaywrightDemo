@@ -10,6 +10,7 @@ const { TestConfig } = require('../../config/configProperties')
 const urlDetails = require('../testData/urldetails.json');
 const productData = require('../testData/productData.json');
 const { BasePage } = require('../pageObjects/BasePage');
+const { BrowserManager } = require('../helperclasses/BrowserManager');
 const basePage = new BasePage();
 
 //set the environment variables TEST_ENV appropriately
@@ -23,16 +24,9 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 const testData = require(testDataFilePath);
 
 test('Search functionality', {tag:['@search']}, async () =>{
-    const browser = await chromium.launch();  // Launch the browser
-  
-    const context = await browser.newContext({
-        httpCredentials: {
-            username: 'hh',
-            password: 'alive',
-        },
-    });
+    const browserManager = new BrowserManager();
+    const page = await browserManager.launchBrowser();  // Launch the browser and get the page
 
-    const page = await context.newPage();  // Use the new context for a fresh page
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
 
@@ -59,25 +53,18 @@ test('Search functionality', {tag:['@search']}, async () =>{
     await homePage.searchProductByKeyword(searchKeyword);
     console.log('[SUCCESS] Landed on Search page.....')
 
-    await searchPage.searchPageValidationBasedOnKeyword(searchKeyword);
-   
+    const valueBeforeFilter = await searchPage.captureCountOfProducts();
    await searchPage.selectRandomfilter();
-   await searchPage.searchPageValidationAfterApplyingFilters();
+   await searchPage.searchPageValidationBasedOnKeyword(searchKeyword);
+   await searchPage.searchPageValidationAfterApplyingFilters(valueBeforeFilter);
 
 });
 
 
 test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
-    const browser = await chromium.launch();  // Launch the browser
-  
-            const context = await browser.newContext({
-                httpCredentials: {
-                    username: 'hh',
-                    password: 'alive',
-                },
-            });
+    const browserManager = new BrowserManager();
+    const page = await browserManager.launchBrowser();  // Launch the browser and get the page
 
-            const page = await context.newPage();  // Use the new context for a fresh page
             console.log('[INFO] Test Case starts.....')
             console.log('[INFO] Navigate to the URL.....')
 
@@ -90,7 +77,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             const searchKeyword = productData.productData.productskeywords;
 
             const url = urlDetails.hellyhansenstg.url;
-            console.log("url is" + url)
+            console.log("URL is: " + url)
            // let url = basePage.urlFormation();
             await homePage.goToHomePage(url);
 
@@ -99,18 +86,17 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             console.log('[SUCCESS] Pop-up closed Successful.....')
             await homePage.closeConfirmationPopUp_HH();
             await homePage.closeCountryConfirmationPopUp();
-            console.log('[SUCCESS] Country confirmation pop-up closed.....')
+            console.log('[SUCCESS] Country confirmation pop-up is closed.....')
 
             await homePage.clickonSearchIcon();
             await homePage.searchProductByKeyword(searchKeyword);
             console.log('[SUCCESS] Landed on Search page.....')
             await searchPage.selectRandomProductFromSearchPage();
-            console.log('[SUCCESS] Landed on Product page.....')
-            await homePage.closeCountryConfirmationPopUp();
+            console.log('[SUCCESS] Landed on PDP.....')
             await productPage.selectSizeFromDropDown();
             await productPage.clickOnAddToBag()
             await productPage.clickOnGoToCartButton()
-            console.log('-------get the review ordersummary details in cart page------')
+            console.log('-------get the Order price, size and Qty from cart page------')
             const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
 
             // Proceed to checkout and complete order
@@ -118,13 +104,14 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
             await checkoutPage.paypalLoginAndOrderConfirmation()
 
-            console.log('-------get the ordersummary details from from order confirmation page-----')
+            console.log('-------get the Order price, size and Qty from cart page from order confirmation page-----')
             const OrderSummary = await orderConfirmationPage.summaryDetailsonConfirmationPage();// get the order summary details from order confirmation page
-            console.log('-------verify order summary details from Order review page and order Confirmation page------')
+            console.log('-------Compare order summary details from Order confirmation page and cart page------')
 
             // Compare the order summary details
             await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
-            console.log('------Test Case Ends------');
+            console.log('-------Values matched------')
+            console.log('------Test Case Ends------')
 
 });
 
