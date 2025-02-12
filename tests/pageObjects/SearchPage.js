@@ -1,6 +1,6 @@
+const { count } = require("console");
 const { expect } = require("playwright/test");
-var valueBeforeFilter
-
+const { HomePage } = require('../pageObjects/HomePage');
 
 // pageObjects/SearchPage.js
 class SearchPage {
@@ -15,15 +15,20 @@ class SearchPage {
        
     }
 
+    async captureCountOfProducts(){
+        let totalCount = '[class="filterBar_totalItemsLabel__o6v3s"]';
+        await this.page.waitForSelector(totalCount, {timeout: 6000});
+       
+        var count = await this.page.innerText(totalCount);
+        count = count.replace(/\n+/g, '').trim();
+   
+        console.log(count)
+        return count
+    }
+
 async selectRandomfilter(){
     await this.page.waitForLoadState('load');
 
-    let totalCount = '[class="filterBar_totalItemsLabel__o6v3s"]';
-
-     valueBeforeFilter = await this.page.innerText(totalCount);
-    valueBeforeFilter = valueBeforeFilter.replace(/\n+/g, '').trim();
-
-    console.log(valueBeforeFilter)
 
     const filters = '[class="filterList_filterItems__dG6XO filterList_filterItemsColors__V8pC3"] label svg';
     
@@ -34,22 +39,34 @@ async selectRandomfilter(){
     
     const randomIndex = Math.floor(Math.random() * filterList.length);
     await filterList[randomIndex].click();
-      const url = this.page.url()
-      console.log('Product Url is : ', url)
 
-      return valueBeforeFilter;
+   // Find the parent label of the randomly selected SVG
+        const selectedLabel = await filterList[randomIndex].evaluate((svgElement) => {
+            // Get the parent label of the SVG element
+            const label = svgElement.closest('label');
+            return label ? label.textContent.trim() : null; // Return the text content of the label
+        });
+    
+      const filterNameApplied = '[class="filterPreview_previewList__yk05O"] button';
+       var nameOfAppliedFilter = await this.page.innerText(filterNameApplied);
+      
+       expect(nameOfAppliedFilter).toContain(selectedLabel);
+
+      
 }
 
-async searchPageValidationAfterApplyingFilters(){
-    await this.page.waitForLoadState('load');
+async searchPageValidationAfterApplyingFilters(valueBeforeFilter){
+    await this.page.waitForLoadState('domcontentloaded');
+    //check if active filters section is displayed
     await this.page.locator('[class="filterPreview_preview__d92Z_"]').waitFor({state: 'visible'});
     await expect(this.page.locator('[class="filterPreview_preview__d92Z_"]')).toBeVisible();
 
-    let totalCount = '[class="filterBar_totalItemsLabel__o6v3s"]';
+    await this.page.waitForSelector('li.productGrid-module__product__qfskE, a.productCard_imageContainer__Xv4Q_');
+    
+    //await this.page.waitForTimeout(6000);
 
-    var valueAfterFilter = await this.page.innerText(totalCount);
-    valueAfterFilter = valueAfterFilter.replace(/\n+/g, '').trim();
 
+    const valueAfterFilter=  await this.captureCountOfProducts();
     console.log(valueAfterFilter)
 
     expect(valueBeforeFilter).not.toBe(valueAfterFilter);
