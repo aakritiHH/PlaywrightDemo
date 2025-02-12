@@ -48,7 +48,7 @@ class HomePage {
         await closePopUp.click()
     }
 
-    async  waitForPageLoad(){
+    async waitForPageLoad(){
         await this.page.waitForTimeout(8000);
     }
 
@@ -162,12 +162,12 @@ class HomePage {
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
+        await this.waitForPageLoad()
         await this.page.waitForLoadState('load', { timeout: 10000 });
+        const locator = await this.page.locator('h2.glTitle');
 
-        await this.page.waitForSelector('h2.glTitle')
-        const popUpText = await this.page.locator('h2.glTitle').textContent();
-     
-        if(popUpText=='We ship to India') {
+        if(locator.isVisible()){
+
            await this.closeCountryConfirmationPopUp();    
         } else{
              await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
