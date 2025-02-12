@@ -166,7 +166,7 @@ class HomePage {
         await this.page.waitForLoadState('load', { timeout: 10000 });
         const locator = await this.page.locator('h2.glTitle');
 
-        if(locator.isVisible()){
+        if(locator.isVisible() && await this.page.locator("h2.glTitle").textContent() === 'We ship to India'){
 
            await this.closeCountryConfirmationPopUp();    
         } else{
