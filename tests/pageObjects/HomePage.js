@@ -162,7 +162,9 @@ class HomePage {
         await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByRole('button', { name: 'Set Location' }).click();
-        await this.page.waitForSelector('h2.glTitle',{timeout: 10000})
+        await this.page.waitForLoadState('load', { timeout: 10000 });
+
+        await this.page.waitForSelector('h2.glTitle')
         const popUpText = await this.page.locator('h2.glTitle').textContent();
      
         if(popUpText=='We ship to India') {
