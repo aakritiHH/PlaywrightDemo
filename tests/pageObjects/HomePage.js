@@ -91,7 +91,7 @@ class HomePage {
                  return;
              } 
            }catch(e){
-             console.log('Waited for Continue to save button')
+             console.log('Waited for I want to stay on this country pop up')
            }
         
     }
@@ -109,20 +109,30 @@ class HomePage {
          }
     }
 
-    async clickonSearchIcon(){
-
+    async clickonSearchIcon(isMobile){
+       if(isMobile){
+        console.log("in mobile view")
+        await this.page.waitForSelector('div[class="searchTrigger_zoom__WHO5Q"] [aria-label="Search"]')
+        await this.page.locator('div[class="searchTrigger_zoom__WHO5Q"] [aria-label="Search"]').click();
+       }else{
+      
         const combinedSearchLocator = this.page.locator('[role="combobox"][aria-label="Search"], input[placeholder="What are you looking for?"]');
         // Wait for either of the elements to be attached
         await combinedSearchLocator.waitFor({ state: 'attached' })
         await this.searchLink.waitFor({ state: "visible"})
         await this.searchLink.click();  
-
+        }
     }
     
-    async searchProductByKeyword(searchkeyword){
-        await this.page.getByPlaceholder('What are you looking for?').fill(searchkeyword);
-        await this.page.keyboard.press('Enter')
+    async searchProductByKeyword(searchkeyword, isMobile){
+        if(isMobile){
+            console.log("in mobile view");
+            await this.page.getByPlaceholder('Search ').fill(searchkeyword);
+        }else
+            await this.page.getByPlaceholder('What are you looking for?').fill(searchkeyword);
+            await this.page.keyboard.press('Enter')
     }
+
     async selectRandomProduct(productData=[]) {
         const singleproduct = productData[Math.floor(Math.random() * productData.length)]
         console.log('product selected - ', singleproduct)
