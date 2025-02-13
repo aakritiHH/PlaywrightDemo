@@ -171,15 +171,7 @@ class HomePage {
               await this.page.getByLabel('Change your shipping country').selectOption('IN');
               await this.page.getByRole('button', { name: 'Save' }).click();
               await this.closeCountryConfirmationPopUp();
-         }       
-       /* if(locator.isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
-
-           await this.closeCountryConfirmationPopUp();    
-        } else{
-             await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
-             await this.page.getByLabel('Change your shipping country').selectOption('IN');
-             await this.page.getByRole('button', { name: 'Save' }).click();
-        }  */     
+         }          
     }
 
     async changeGeoLocation_HH(){
