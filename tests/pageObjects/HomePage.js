@@ -196,15 +196,12 @@ class HomePage {
         await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
         await this.waitForPageLoad()
         
-        await this.closeCountryConfirmationPopUp();
-       /* if(await this.page.locator('h2.glTitle').isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
-            await this.closeCountryConfirmationPopUp();    
-         } else{
-              await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
-              await this.page.getByLabel('Change your shipping country').selectOption('IN');
-              await this.page.getByRole('button', { name: 'Save' }).click();
-              await this.closeCountryConfirmationPopUp();
-         } */
+        
+        if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
+        await this.page.getByLabel('Change your shipping country').selectOption('IN');
+        await this.page.getByRole('button', { name: 'Save' }).click();  
+         } 
+         await this.closeCountryConfirmationPopUp();
     }
 }
 module.exports = { HomePage };
