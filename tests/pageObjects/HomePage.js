@@ -201,8 +201,8 @@ class HomePage {
             console.log("Country selector pop-up appear")
             await this.page.locator('select#gle_selectedCountry').selectOption('IN');
             await this.page.getByRole('button', { name: 'Save' }).click();  
+            console.log("Country selector pop-up India selected")
          } 
-         await this.closeCountryConfirmationPopUp();
     }
 }
 module.exports = { HomePage };
