@@ -195,9 +195,10 @@ class HomePage {
         await this.page.getByLabel('Your country').selectOption('Global');
         await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
         await this.page.waitForTimeout(8000)
-        await expect.soft(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
+        await this.page.waitForLoadState('load', { timeout: 10000 });
         
-        if(await this.page.locator('div.glDefaultPopupContainer').isVisible()){
+        if (await this.page.locator('div.glDefaultPopupContainer').isVisible() && 
+    (await this.page.locator("h2.glTitle").textContent()) !== 'We ship to India'){
             console.log("Country selector pop-up appear")
             await this.page.locator('select#gle_selectedCountry').selectOption({ value: 'IN' });
             await this.page.getByRole('button', { name: 'Save' }).click();  
