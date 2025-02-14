@@ -198,8 +198,9 @@ class HomePage {
         await this.page.waitForLoadState('load', { timeout: 10000 });
         
         if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
-        await this.page.locator('select#gle_selectedCountry').selectOption('IN');
-        await this.page.getByRole('button', { name: 'Save' }).click();  
+            console.log("Country selector pop-up appear")
+            await this.page.locator('select#gle_selectedCountry').selectOption('IN');
+            await this.page.getByRole('button', { name: 'Save' }).click();  
          } 
          await this.closeCountryConfirmationPopUp();
     }
