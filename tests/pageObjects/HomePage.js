@@ -195,9 +195,9 @@ class HomePage {
         await this.page.getByLabel('Your country').selectOption('Global');
         await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
         await this.page.waitForTimeout(8000)
-       
+        await expect.soft(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
         
-        if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
+        if(await this.page.locator('div.glDefaultPopupContainer').isVisible()){
             console.log("Country selector pop-up appear")
             await this.page.locator('select#gle_selectedCountry').selectOption({ value: 'IN' });
             await this.page.getByRole('button', { name: 'Save' }).click();  
