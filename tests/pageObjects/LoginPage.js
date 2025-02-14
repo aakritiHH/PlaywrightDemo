@@ -25,12 +25,19 @@ class LoginPage {
         await this.page.locator('#emailSignupModal button.close').click();
     }
 
-    async login(username, password) {
-        await this.submitButton.click();
+    async login() {
+      /*  await this.submitButton.click();
         await this.emailInput.fill(username);
         await this.passwordInput.fill(password);
         await this.submitButton.click();
-        //await this.page.waitForTimeout(5000);
+        //await this.page.waitForTimeout(5000); */
+        await this.page.waitForTimeout(10000);
+        await expect(this.page.getByRole('textbox', { name: '*Email' })).toBeVisible();
+  await this.page.getByRole('textbox', { name: '*Email' }).click();
+  await this.page.getByRole('textbox', { name: '*Email' }).fill('roopsnov89@gmail.com');
+  await this.page.getByRole('textbox', { name: '*Password' }).click();
+  await this.page.getByRole('textbox', { name: '*Password' }).fill('Password@123');
+  await this.page.getByRole('button', { name: 'Sign In' }).click();
     }
 
     async verifySuccessfulLogin(expectedUsername) {

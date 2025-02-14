@@ -186,21 +186,25 @@ class HomePage {
 
     async changeGeoLocation_HH(){
         await this.page.waitForLoadState('load');
-        await geoLocationButton_HH.waitFor({ state: 'visible', timeout: 6000 });
-        await geoLocationButton_HH.click();
-        await expect(this.page.getByText('CloseYour RegionGlobalNorth')).toBeVisible();
+        await expect(this.page.locator('svg.storeSwitcherTrigger_storeSwitcherFlag__JeA4Y')).toBeVisible();
+        await this.page.locator('svg.storeSwitcherTrigger_storeSwitcherFlag__JeA4Y').click();
+
+        //await expect(this.page.getByText('Please confirm your locationPlease be aware that changing countries will reload')).toBeVisible();
+        await expect(this.page.locator('div.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2')).toBeVisible({timeout:6000});
         await this.page.getByLabel('Your Region').selectOption('Global');
-        await this.page.getByRole('button', { name: 'Set Location' }).click();
-      
-        await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
-        await this.page.getByLabel('Change your shipping country').selectOption('IN');
-        await this.page.getByRole('button', { name: 'Save' }).click();
-     
-       /* const location = await this.page.locator('#ge_ss0_1 span').textContent();
-        console.log('Current location .......', location); */
+        await this.page.getByLabel('Your country').selectOption('Global');
+        await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
+        await this.waitForPageLoad()
+        
         await this.closeCountryConfirmationPopUp();
-        await this.clickShippingWorldWidePopUpSaveButton();
-  
+       /* if(await this.page.locator('h2.glTitle').isVisible() && await this.page.locator("h2.glTitle").textContent() == 'We ship to India'){
+            await this.closeCountryConfirmationPopUp();    
+         } else{
+              await expect(this.page.locator('.glDefaultPopupContainer')).toBeVisible();
+              await this.page.getByLabel('Change your shipping country').selectOption('IN');
+              await this.page.getByRole('button', { name: 'Save' }).click();
+              await this.closeCountryConfirmationPopUp();
+         } */
     }
 }
 module.exports = { HomePage };
