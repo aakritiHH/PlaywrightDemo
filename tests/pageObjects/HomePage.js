@@ -195,7 +195,7 @@ class HomePage {
         await this.page.getByLabel('Your country').selectOption('Global');
         await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
         await this.waitForPageLoad()
-        
+        await this.page.waitForLoadState('load', { timeout: 10000 });
         
         if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
         await this.page.locator('select#gle_selectedCountry').selectOption('IN');
