@@ -198,7 +198,7 @@ class HomePage {
         
         
         if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
-        await this.page.getByLabel('Change your shipping country').selectOption('IN');
+        await this.page.locator('select#gle_selectedCountry').selectOption('IN');
         await this.page.getByRole('button', { name: 'Save' }).click();  
          } 
          await this.closeCountryConfirmationPopUp();
