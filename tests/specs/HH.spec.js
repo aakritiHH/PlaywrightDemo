@@ -86,7 +86,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
             await homePage.closeConfirmationPopUp_HH();
             await homePage.changeGeoLocation_HH()
 
-            //await homePage.closeCountryConfirmationPopUp();
+            await homePage.closeCountryConfirmationPopUp();
             console.log('[SUCCESS] Country confirmation pop-up is closed.....')
 
             await homePage.clickonSearchIcon();
