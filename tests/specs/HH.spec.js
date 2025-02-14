@@ -118,7 +118,7 @@ test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfir
 
 
 
-test('Place an order using paypal as payment type in Mobile', { tag: ['@HH', '@OrderConfirmation', '@mobile'] }, async ({isMobile}) => {
+test('Place an order using paypal as payment type in Mobile', { tag: ['@OrderConfirmation', '@mobile'] }, async ({isMobile}) => {
     const browserManager = new BrowserManager();
     const page = await browserManager.launchBrowser();  // Launch the browser and get the page
     const pageObjectManager = new PageObjectManager(page);
