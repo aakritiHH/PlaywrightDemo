@@ -194,13 +194,14 @@ class HomePage {
         await this.page.getByLabel('Your Region').selectOption('Global');
         await this.page.getByLabel('Your country').selectOption('Global');
         await this.page.locator('.storeSwitcherForm_storeSwitcherFieldsButtonsWrapper__6yKE2 > button').click();
-        await this.waitForPageLoad()
-        await this.page.waitForLoadState('load', { timeout: 10000 });
+        await this.page.waitForTimeout(8000)
+       
         
         if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
             console.log("Country selector pop-up appear")
             await this.page.locator('select#gle_selectedCountry').selectOption('IN');
             await this.page.getByRole('button', { name: 'Save' }).click();  
+            await this.page.waitForTimeout(8000)
             console.log("Country selector pop-up India selected")
          } 
     }
