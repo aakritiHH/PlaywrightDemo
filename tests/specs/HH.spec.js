@@ -24,31 +24,29 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 
 const testData = require(testDataFilePath);
 
-test('Search functionality', {tag:['@search']}, async () =>{
+test('Verify the search functionality', {tag:['@search']}, async () =>{
     const browserManager = new BrowserManager();
     const page = await browserManager.launchBrowser();  // Launch the browser and get the page
 
+    const pageObjectManager = new PageObjectManager(page);
+
+    const homePage = pageObjectManager.getHomePage();
+    const searchPage = pageObjectManager.getSearchPage();
+    const searchKeyword = productData.productData.productskeywords;
+
     console.log('[INFO] Test Case starts.....')
     console.log('[INFO] Navigate to the URL.....')
-
-    const homePage = new HomePage(page)
-    const searchPage = new SearchPage(page)
-    const searchKeyword = productData.productData.productskeywords;
 
     const url = urlDetails.hellyhansenstg.url;
     console.log("url is" + url)
    // let url = basePage.urlFormation();
     await homePage.goToHomePage(url);
 
-  
     await homePage.closePopUpOnHomePage_HH()
     console.log('[SUCCESS] Accept cookies Pop-up closed Successful.....')
     await homePage.closeCountryConfirmationPopUp();
     console.log('[SUCCESS] Country confirmation pop-up closed successfully.....')
-
-    if(await page.getByLabel('I want to stay').isVisible()){
-        await page.getByLabel('I want to stay').click();
-    }
+    await homePage.closeConfirmationPopUp_HH();
 
     await homePage.clickonSearchIcon();
     await homePage.searchProductByKeyword(searchKeyword);
@@ -170,8 +168,7 @@ test('Place an order using paypal as payment type in Mobile', { tag: ['@HH', '@O
 
     // Compare the order summary details
     await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
-    console.log('-------Values matched------')
-    console.log('------Test Case Ends------')
-
+    console.log('-------Values matched------');
+    console.log('------Test Case Ends------');
 
 });

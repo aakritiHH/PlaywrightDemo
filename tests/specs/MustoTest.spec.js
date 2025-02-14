@@ -13,6 +13,7 @@ const { TestConfig } = require('../../config/configProperties')
 const  urlDetails  = require('../testData/urldetails.json');
 const productData = require('../testData/productData.json');
 const { url } = require('inspector');
+const { PageObjectManager } = require('../helperclasses/PageObjectManager');
 const { BasePage } = require('../pageObjects/BasePage');
 const basePage = new BasePage();
 
@@ -27,8 +28,11 @@ console.log(`Attempting to load: ${testDataFilePath}`);
 const testData = require(testDataFilePath);
 
 test('TC02 : Homepage > Verify the Login functionality',{tag : ['@loginpage']}, async function({ page})  {
-    const homePage = new HomePage(page)
-    const loginPage= new LoginPage(page)
+    
+    const pageObjectManager = new PageObjectManager(page);
+
+    const homePage = pageObjectManager.getHomePage();  
+    const loginPage= pageObjectManager.getLoginPage();
      
     console.log('[INFO] Navigate to the URL.....')
     const url = urlDetails.mustostg.url;
@@ -51,8 +55,9 @@ test('TC02 : Homepage > Verify the Login functionality',{tag : ['@loginpage']}, 
 });
 
 test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@GEO','@Banner']}, async function({ page }) {
-    const homePage = new HomePage(page)
-     
+    const pageObjectManager = new PageObjectManager(page);
+
+    const homePage = pageObjectManager.getHomePage();
    
     console.log('[INFO] Test Case starts.....')
  
@@ -69,13 +74,15 @@ test('TC03 : Homepage > Verify the GEO IP banner',{tag : ['@GEO','@Banner']}, as
     await homePage.verifySelectedCountry('India')
 });
 
-test('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@MUSTO','@smoke']}, async ({ page }) => {
-    const homePage = new HomePage(page)
-    const searchPage = new SearchPage(page)
-    const productPage = new ProductPage(page)
-    const cartPage = new CartPage(page)
-    const checkoutPage = new CheckoutPage(page)
-    const orderConfirmationPage = new OrderConfirmationPage(page)
+test.only('TC04 : Create an order using Pay pal as payment type',{tag : ['@OrderConfirmation', '@MUSTO','@smoke']}, async ({ page }) => {
+    const pageObjectManager = new PageObjectManager(page);
+    
+    const homePage = pageObjectManager.getHomePage();
+    const searchPage = pageObjectManager.getSearchPage();
+    const productPage = pageObjectManager.getProductPage();
+    const cartPage = pageObjectManager.getCartPage();
+    const checkoutPage = pageObjectManager.getCheckoutPage();
+    const orderConfirmationPage = pageObjectManager.getOrderConfirmationPage();
    
     const searchKeyword = productData.productData.productskeywords;
 

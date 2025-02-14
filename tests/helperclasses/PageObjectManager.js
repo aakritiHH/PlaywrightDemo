@@ -11,6 +11,10 @@ class PageObjectManager {
         this.page = page;
     }
 
+    getLoginPage(){
+        return new LoginPage(this.page);
+    }
+
     getHomePage() {
         return new HomePage(this.page);
     }

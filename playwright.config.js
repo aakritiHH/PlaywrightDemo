@@ -24,7 +24,7 @@ module.exports = defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["line"],
+  reporter: [["html"],
     ["allure-playwright",
       {
         detail: true,
@@ -44,21 +44,15 @@ module.exports = defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
+    trace: 'off',
     screenshot: {mode: 'on', fullPage: true},
     video: 'on',
     //baseURL : "https://staging-shop.hhworkwear.com/",
     headless : true,
     ignoreHTTPSErrors: true,
-    // httpCredentials: {
-    //   username: 'hh',
-    //   password: 'alive',
-    // },
     //browserName : "chromium",
     //...devices['Desktop Chrome']
   },
-
-  
 
   /* Configure projects for major browsers */
   projects: [
@@ -93,16 +87,28 @@ module.exports = defineConfig({
      },
 
   //   /* Test against mobile viewports. */
-  //   {
-  //     name: 'Mobile Chrome',
-  //     use: { ...devices['Pixel 5'] },
-  //   },
-  //   {
-  //     name: 'Mobile Safari',
-  //     use: { ...devices['iPhone 12'] },
-  //   },
+      {
+        name: 'Mobile Chrome',
+        use: { ...devices['Pixel 5'],
+        browserName: 'chromium', 
+        channel: 'msedge',
+        isMobile: true,
+        viewport: { width: 375, height: 667 },
+      },
+    },
+    
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'],
+        browserName: 'webkit', // can pass webkit or chromium
+        isMobile: true,
+        // Set the viewport size smaller for faster tests
+        viewport: { width: 375, height: 667 },
+       },
+      
+    },
 
-  // //   /* Test against branded browsers. */
+   //   /* Test against branded browsers. */
     {
       name: 'Microsoft Edge',
       use: { ...devices['Desktop Edge'], channel: 'msedge' },
