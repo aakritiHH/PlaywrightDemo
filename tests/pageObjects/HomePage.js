@@ -199,7 +199,7 @@ class HomePage {
         
         if(await this.page.locator('.glDefaultPopupContainer').isVisible()){
             console.log("Country selector pop-up appear")
-            await this.page.locator('select#gle_selectedCountry').selectOption('IN');
+            await this.page.locator('select#gle_selectedCountry').selectOption({ value: 'IN' });
             await this.page.getByRole('button', { name: 'Save' }).click();  
             await this.page.waitForTimeout(8000)
             console.log("Country selector pop-up India selected")
