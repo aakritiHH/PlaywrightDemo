@@ -59,64 +59,61 @@ test('Verify the search functionality', {tag:['@search']}, async () =>{
 
 });
 
-
 test('Place an order using paypal as payment type', { tag: ['@HH', '@OrderConfirmation'] }, async () => {
     const browserManager = new BrowserManager();
     const page = await browserManager.launchBrowser();  // Launch the browser and get the page
-    
-            console.log('[INFO] Test Case starts.....')
-            console.log('[INFO] Navigate to the URL.....')
+    const pageObjectManager = new PageObjectManager(page);
 
-            const homePage = new HomePage(page)
-            const searchPage = new SearchPage(page)
-            const productPage = new ProductPage(page)
-            const cartPage = new CartPage(page)
-            const checkoutPage = new CheckoutPage(page)
-            const orderConfirmationPage = new OrderConfirmationPage(page)
-            const searchKeyword = productData.productData.productskeywords;
+    const homePage = pageObjectManager.getHomePage();
+    const searchPage = pageObjectManager.getSearchPage();
+    const productPage = pageObjectManager.getProductPage();
+    const cartPage = pageObjectManager.getCartPage();
+    const checkoutPage = pageObjectManager.getCheckoutPage();
+    const orderConfirmationPage = pageObjectManager.getOrderConfirmationPage();
+    const searchKeyword = productData.productData.productskeywords;
 
-            const url = urlDetails.hellyhansenstg.url;
-            console.log("URL is: " + url)
-           // let url = basePage.urlFormation();
-            await homePage.goToHomePage(url);
+    console.log('[INFO] Test Case starts.....')
+    console.log('[INFO] Navigate to the URL.....')
 
-          
-            await homePage.closePopUpOnHomePage_HH()
-            console.log('[SUCCESS] Pop-up closed Successful.....')
-            await homePage.closeConfirmationPopUp_HH();
-            await homePage.changeGeoLocation_HH()
+    const url = urlDetails.hellyhansenstg.url;
+    console.log("URL is: " + url)
+    // let url = basePage.urlFormation();
+    await homePage.goToHomePage(url);
 
-            //await homePage.closeCountryConfirmationPopUp();
-            console.log('[SUCCESS] Country confirmation pop-up is closed.....')
+    await homePage.closePopUpOnHomePage_HH()
+    console.log('[SUCCESS] Pop-up closed Successful.....')
+    await homePage.closeConfirmationPopUp_HH();
+    await homePage.changeGeoLocation_HH()
 
-            await homePage.clickonSearchIcon();
-            await homePage.searchProductByKeyword(searchKeyword);
-            console.log('[SUCCESS] Landed on Search page.....')
-            await searchPage.selectRandomProductFromSearchPage();
-            console.log('[SUCCESS] Landed on PDP.....')
-            await productPage.selectSizeFromDropDown();
-            await productPage.clickOnAddToBag()
-            await productPage.clickOnGoToCartButton()
-            console.log('-------get the Order price, size and Qty from cart page------')
-            const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
+    //await homePage.closeCountryConfirmationPopUp();
+    console.log('[SUCCESS] Country confirmation pop-up is closed.....')
 
-            // Proceed to checkout and complete order
-            await cartPage.proceedToCheckout();
-            await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
-            await checkoutPage.paypalLoginAndOrderConfirmation()
+    await homePage.clickonSearchIcon();
+    await homePage.searchProductByKeyword(searchKeyword);
+    console.log('[SUCCESS] Landed on Search page.....')
+    await searchPage.selectRandomProductFromSearchPage();
+    console.log('[SUCCESS] Landed on PDP.....')
+    await productPage.selectSizeFromDropDown();
+    await productPage.clickOnAddToBag()
+    await productPage.clickOnGoToCartButton()
+    console.log('-------get the Order price, size and Qty from cart page------')
+    const reviewOrderSummary = await cartPage.getOrderValuesFromCartPage(); //get the order summary details from cart page
 
-            console.log('-------get the Order price, size and Qty from cart page from order confirmation page-----')
-            const OrderSummary = await orderConfirmationPage.summaryDetailsonConfirmationPage();// get the order summary details from order confirmation page
-            console.log('-------Compare order summary details from Order confirmation page and cart page------')
+    // Proceed to checkout and complete order
+    await cartPage.proceedToCheckout();
+    await checkoutPage.fillBillingAddressDetailsAndNavigateToPayPal(testData.billingAddress)
+    await checkoutPage.paypalLoginAndOrderConfirmation()
 
-            // Compare the order summary details
-            await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
-            console.log('-------Values matched------')
-            console.log('------Test Case Ends------')
+    console.log('-------get the Order price, size and Qty from cart page from order confirmation page-----')
+    const OrderSummary = await orderConfirmationPage.summaryDetailsonConfirmationPage();// get the order summary details from order confirmation page
+    console.log('-------Compare order summary details from Order confirmation page and cart page------')
+
+    // Compare the order summary details
+    await orderConfirmationPage.compareCartVsOrderCompletionSummary(reviewOrderSummary, OrderSummary);
+    console.log('-------Values matched------')
+    console.log('------Test Case Ends------')
 
 });
-
-
 
 test('Place an order using paypal as payment type in Mobile', { tag: ['@OrderConfirmation', '@mobile'] }, async ({isMobile}) => {
     const browserManager = new BrowserManager();

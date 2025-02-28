@@ -93,7 +93,8 @@ async selectRandomProductFromSearchPage(){
     const count = await listOfProducts.length;
     console.log(`Found ${count} products`);
     
-    const randomIndex = Math.floor(Math.random() * listOfProducts.length);
+    const randomIndex = basePage.randomElementSelection(listOfProducts)
+    //Math.floor(Math.random() * listOfProducts.length);
     await listOfProducts[randomIndex].click();
       const url = this.page.url()
       console.log('Product Url is : ', url)

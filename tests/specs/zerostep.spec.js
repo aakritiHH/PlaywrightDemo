@@ -21,7 +21,7 @@ test('sample for ai using zero step', async({page})=>{
 
 });
 
-test.only('open helly hansen website and do some operations', async({page, ai})=>{
+test('open helly hansen website and do some operations', async({page, ai})=>{
     const homePage = new HomePage(page);
 
     await page.goto('https://newstg.musto.com/');
@@ -70,4 +70,26 @@ test('open helly hansen', async({page})=>{
 
 
 
+});
+
+
+test('Test script in world market', async({page,ai})=>{
+    await page.goto('https://staging-instance.worldmarket.com/'); 
+
+    //await ai('Close the sign up modal')
+    //await ai('wait for the search text box to be visible')
+    await ai('Search with Rugs keyword in discover something text box');
+    //await page.keyboard.press('Enter');
+
+    await ai('Press Enter key');
+    await page.waitForLoadState('networkidle', { timeout: 20000 });
+    await ai('Click on any product image from first row of products');
+    //await ai('Click on the first product image')
+    await page.waitForLoadState('load', { timeout: 20000 });
+//     const name = await ai('What is the name of product?')
+
+//    console.log('Product name is: ', name)
+   await ai('Select any size if sizes are available')
+   await ai('Click on Add to cart button')
+    await page.pause()
 });

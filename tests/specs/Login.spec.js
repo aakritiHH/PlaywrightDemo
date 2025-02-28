@@ -1,6 +1,6 @@
-import { chromium } from "playwright-extra"
+//import { chromium } from "playwright-extra"
 
-import StealthPlugin from "puppeteer-extra-plugin-stealth"
+//import StealthPlugin from "puppeteer-extra-plugin-stealth"
 const { test } = require('@playwright/test');
 const { HomePage } = require('../pageObjects/HomePage');
 const { LoginPage } = require('../pageObjects/LoginPage');

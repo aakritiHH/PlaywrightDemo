@@ -24,7 +24,6 @@ class HomePage {
     }
 
     async goToHomePage(url) {
-         
         await this.page.goto(url) 
         await this.page.context().clearCookies();
         await this.page.evaluate(() => {
